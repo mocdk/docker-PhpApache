@@ -25,15 +25,14 @@ RUN echo "date.timezone = Europe/Copenhagen" > /etc/php5/fpm/conf.d/timezone.ini
 RUN echo "memory_limit = 1G" > /etc/php5/cli/conf.d/memory.ini
 
 ### Remove default index.html file
-##RUN rm /var/www/html/index.html
+#RUN rm /var/www/html/index.html
 
-### Create a new PHP based index file
-##COPY files/index.php /var/www/html/index.php
+# Create a new PHP based index file
+COPY files/index.php /var/www/html/index.php
 
 #Copy supervisor files
 COPY files/apache.conf /etc/supervisor/conf.d/apache.conf
-
-###COPY files/fpm.conf /etc/supervisor/conf.d/fpm.conf
+COPY files/fpm.conf /etc/supervisor/conf.d/fpm.conf
 
 EXPOSE 22 80
 CMD ["/usr/bin/supervisord"]
